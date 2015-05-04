@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+$outfile = pop;
+open( OUT, ">> $outfile" ) or die "Error: $!\n";
+
+foreach $arg ( @ARGV )
+{
+	open ( IN, $arg ) or die "Error: $!\n";
+	@lines = <IN>;
+	print OUT @lines;
+}

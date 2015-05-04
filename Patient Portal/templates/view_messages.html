@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<p style="font-size: 25px; color: #080808;">MESSAGES</p>
+<a href="/view/messages/compose" style="font-size: 20px;">COMPOSE</a>
+<br>
+<br>
+<table style="width: 80%">
+    <tr>
+        <th>Date</th>
+        <th>Message</th>
+        <th>Sender</th>
+    </tr>
+{% for msg in messages %}
+    <tr>
+        <td>{{msg.date}}</td>
+        <td>{{msg.message}}</td>
+        <td>{{msg.sender_email}}</td>
+    </tr>
+{% endfor %}
+</table>
+<div class="container" align="center">
+    <label>{{error_message}}</label>
+</div>
+{% endblock %}

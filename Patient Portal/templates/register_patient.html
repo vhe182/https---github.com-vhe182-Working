@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center" style="width: 50%">
+    <form method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading">Register New Patient</h2>
+        <input type="text" name="first_name" class="form-control" placeholder="First Name" required autofocus>
+        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" name="verify_password" class="form-control" placeholder="Verify Password" required>
+        <button class="btn btn-log btn-primary btn-block" type="submit">Register</button>
+    </form>
+</div>
+
+<div class="container" align="center">
+    <label>{{email_error}}</label>
+    <label>{{password_error}}</label>
+    <label>{{verify_password_error}}</label>
+    <label>{{name_error}}</label>
+</div>
+{% endblock %}

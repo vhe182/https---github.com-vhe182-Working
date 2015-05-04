@@ -1,0 +1,54 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+
+#PROGRAM: mysha256
+#AUTHOR : Victor Hugo Estrada
+#CLASS  : Systems Programming
+#Professor : Dr. Maynard
+
+#DESCRIPTION: This program receives a rootfile and and optional
+#output file.  The program checks for and opens all directories
+#in the rootfile, gets the SHA256 message digest from each file
+#in the directory, and outputs the message digest for each file
+#with pathname and message digest per line and separated by a
+#tab.
+
+
+my $rootfile = shift;
+my $outfile = shift;
+
+#CHECK FOR OPTIONAL OUTPUT FILE AND OPEN IT 
+if ( defined( $outfile) )
+{
+	open( FOUT, "> $outfile" ) or die "ERROR: Couldn't open $outfile : $!\n";
+}else{ 
+	#ELSE SET OUTPUT FILEHANDLE TO STDOUT
+	*FOUT = *STDOUT;
+	$outfile = "STDOUT";
+}
+
+#OPEN ROOTFILE AND READ ALL CONTENTS INTO @dirs, THEN CHOP 
+#THE NEWLINE OFF OF ALL THE @dirs ELEMENTS.
+open( DIRS, $rootfile ) or die "Couldn't open $rootfile : $!\n";
+my @dirs = <DIRS>;
+chop @dirs;
+
+#LOOP THROUGH EACH DIRECTORY CHECKING TO MAKE SURE EACH ENTRY
+#ACTUALLY IS A DIRECTORY.
+foreach my $directory ( @dirs )
+{
+	#IF A DIRECTORY, RUN FIND ON EACH ENTRY AND AND CHECK EACH FILE
+	next unless ( -d $directory );
+	my @files = `find $directory`;
+	chop @files;
+	#PRINT THE sha256 message digest OF EVERY REGULAR FILE
+	foreach my $file ( @files )
+	{
+		next unless ( -f $file );
+		my $fingerprint = `sha256sum $file`;
+		chop $fingerprint;	
+		my ( $message, $filename ) = split(/[	 ]+/, $fingerprint);		
+		print FOUT "$filename\t$message\n";
+	}
+}

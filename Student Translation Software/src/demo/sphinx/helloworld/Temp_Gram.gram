@@ -1,0 +1,17 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Hello World example
+ */
+
+grammar hello;
+
+public <greet> = (Good morning | Hello) ( Abed | Bhiksha | Evandro | Paul | Philip | Rita | Will );
+
+public <rock> = (For) (Those) (About) (To) (Rock | Fight);
+
+public <salute> = (We) (Salute) (You);
+
+public <hello> = (Hello | World) (Hello | World);
+
+public <return> = (Children) (Return) (Your) (Books);

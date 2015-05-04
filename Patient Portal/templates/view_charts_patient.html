@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2> Patient Chart Entries</h2>
+<table style="width: 80%">
+    <tr>
+        <th>Patient Email</th>
+        <th>Height (inches)</th>
+        <th>Weight (lbs)</th>
+        <th>Blood Pressure</th>
+        <th>Diagnosis</th>
+        <th>Comments</th>
+        <th>Time Logged</th>
+    </tr>
+{% for chart in charts %}
+    <tr>
+        <td>{{chart.email}}</td>
+        <td>{{chart.height}}</td>
+        <td>{{chart.weight}}</td>
+        <td>{{chart.blood_pressure}}</td>
+        <td>{{chart.diagnosis}}</td>
+        <td>{{chart.comments}}</td>
+        <td>{{chart.created}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

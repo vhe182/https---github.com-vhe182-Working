@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading">Create New Account</h2>
+        <input type="text" name="first_name" class="form-control" placeholder="First Name" required autofocus>
+        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" name="verify_password" class="form-control" placeholder="Verify Password" required>
+        <label>
+            <p>Account Type</p>
+        </label>
+        <select class="form-control" name="account_type">
+            <option value="DOCTOR">DOCTOR</option>
+            <option value="STAFF">STAFF</option>
+            <option value="NURSE">NURSE</option>
+        </select>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="is_admin" value="TRUE"> Is admin?
+            </label>
+        </div>
+        <input type ="text" name="admin_email" class="form-control" placeholder="Admin Email" required>
+        <input type="password" name="admin_password" class="form-control" placeholder="Admin Password" required>
+        <button class="btn btn-log btn-primary btn-block" type="submit">Register</button>
+    </form>
+</div>
+
+<div class="container" align="center">
+    <label>{{email_error}}</label>
+    <label>{{password_error}}</label>
+    <label>{{verify_password_error}}</label>
+    <label>{{name_error}}</label>
+    <label>{{admin_error}}</label>
+</div>
+{% endblock %}

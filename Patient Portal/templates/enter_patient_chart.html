@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center" style="width: 50%">
+    <form method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading">Update Patient Chart</h2>
+        <input type="email" name="patient_email" class="form-control" placeholder="Patient Email" required>
+        <input type="text" name="height" class="form-control" placeholder="Height (inches)" required>
+        <input type="text" name="weight" class="form-control" placeholder="Weight (lbs)" required>
+        <input type="text" name="systolic" class="form-control" placeholder="Systolic BP" required>
+        <input type="text" name="diastolic" class="form-control" placeholder="Diastolic BP" required>
+        <textarea type="text" name="diagnosis" class="form-control input-lg" placeholder="Diagnosis"></textarea>
+        <textarea type="text" name="comments" class="form-control input-lg" placeholder="Comments"></textarea>
+        <button class="btn btn-log btn-primary btn-block" type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="container" align="center">
+    <label>{{error_message}}</label>
+</div>
+{% endblock %}

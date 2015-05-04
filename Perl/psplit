@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+open ( TXT, $ARGV[0] ) or die "Couldn't open $ARGV[0]: $!\n";
+open ( OUT1, "> $ARGV[0].1" ) or die;
+open ( OUT2, "> $ARGV[0].2" ) or die;
+open ( OUT3, "> $ARGV[0].3" ) or die;
+@lines = <TXT>;
+
+print OUT1 @lines[0 .. @lines/3];
+print OUT2 @lines[(@lines/3)+1 .. 2*(@lines/3)];
+print OUT3 @lines[2*(@lines/3)+1 .. $#lines];

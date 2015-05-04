@@ -1,0 +1,73 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+
+#PROGRAM: verifile 
+#AUTHOR : Victor Hugo Estrada
+#CLASS  : Systems Programming
+#Professor : Dr. Maynard
+
+#DESCRIPTION: Verifile receives a file containing a list of directories
+#as well as a file containing the sha256sum message digests of the files
+#corresponding to the rootfile.  Verifile is used to check the message 
+#digest of each file in the rootfile and returns a pair of statements
+#displaying the old and new fingerprints of any files that have been
+#changed.
+
+die "Usage: verifile rootfile sha256file\n" if @ARGV != 2;
+
+my $rootfile = shift;
+my $shafile = shift;
+my @rootfnames = ();
+my @rootfprints = ();
+my @shafnames = ();
+my @shafprints = ();
+
+#OPEN THE sha256file AND PASS ALL CONTENTS INTO @shalines, THEN CHOP.
+open( SHA, $shafile ) or die "ERROR: Couldn't open $shafile: $!\n";
+my @shalines = <SHA>;
+chop @shalines;
+
+#CALL mysha256 ON THE ROOTFILE AND LOAD THE OUTPUT INTO @dirlines
+my @dirlines = `mysha256 $rootfile`;
+chop @dirlines;
+
+#CUT AND PLACE EACH FILEPATH AND FINGERPRINT IN CORRESPONDING ARRAYS
+foreach my $line ( sort @shalines )
+{
+	@_ = split( /\t/, $line );
+	push( @shafnames, $_[0] );
+	push( @shafprints, $_[1] );
+}
+
+#CUT AND PLACE EACH FILEPATH AND FINGERPRINT IN CORRESPONDING ARRAYS
+foreach my $line ( sort @dirlines)
+{
+	@_ = split( /\t/, $line );
+	push( @rootfnames, $_[0] );
+	push( @rootfprints, $_[1] );
+}
+
+#LOOP THROUGH THE ROOTFILE FILES AND CHECK EACH FILE AGAINST THE LIST
+#OF sha256file FILES.  IF MATCHING NAMES, CHECK FOR FINGERPRINT 
+#INEQUALITY AND, IF UNEQUAL, PRINT <old> AND <new> STATEMENTS.  
+#FOLLOWING A SUCCESSFUL MATCHING, INEQUALITY CHECK, AND PRINT, THE
+#ELEMENT WILL BE REMOVED FROM BOTH OF THE SHA FILE ARRAYS, THAT IS,
+#THE FILEPATH AND FINGERPRINT ARRAYS AND PROGRAM JUMPS TO NEXT
+#ELEMENT IN THE ROOTFILE FILES.
+FILE:
+for ( my $j = 0; $j < @rootfnames ; $j++ )
+{
+	for ( my $i = 0; $i < @shafnames ; $i++ )
+	{
+		next unless ( $rootfnames[$j] eq $shafnames[$i] );
+		if ( $rootfprints[$j] ne $shafprints[$i] )
+		{
+			print "<old> $shafnames[$i] $shafprints[$i]\n";
+			print "<new> $rootfnames[$j] $rootfprints[$j]\n";
+			splice(@shafnames, $i, 1 );
+			splice(@shafprints, $i, 1 );
+			goto FILE;
+		}
+	}		
+}

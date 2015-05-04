@@ -1,0 +1,49 @@
+Play with the gram files under demo.sphinx.helloworld
+
+No need to run ant or install ant. We made need to do this at a later time; however, we
+are running fine without it for now. 
+
+You WILL need a regular microphone that plugs into the microphone jack onto the computer
+you CAN NOT use a webcam microphone (I attempted and failed).
+
+If you are going to delete a line in the hello.gram file please save the line in Temp_Gram.gram
+so we don't need to write it out later. If it is already saved feel free to delete.
+
+The program is using a main file so we need to edit this to fit into the MCV model. 
+
+Things to not touch yet: 
+helloworld.Manifest
+helloworld.config.xml
+
+
+HOW THE GRAM FILE WORKS
+
+EX1)
+
+(Good morning | Hello) ( Abed | Bhiksha | Evandro | Paul | Philip | Rita | Will )
+ 
+By using the above syntax we can say:
+
+Good morning Abed
+Good morning Will
+Hello Paul
+
+We cannot say:
+
+Hello
+Abed
+Will 
+
+
+EX2)
+
+(We) (Salute) (You)
+
+You can only say:
+
+We salute you
+
+You can't say:
+
+We
+You

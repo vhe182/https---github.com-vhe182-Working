@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2> Receipt for Services Rendered</h2>
+<p>
+    Bill To:
+    {{patient.first_name}}
+    {{patient.last_name}}<br/>
+    Prepared By:
+    {{current_user.first_name}}
+    {{current_user.last_name}}<br/>
+    Date Created:
+    {{new_bill.created}}<br/>
+</p>
+<div data-bind="if: {{new_bill.routine_physical_adult}}">Routine Physical, Adult</div>
+<div data-bind="if: {{new_bill.routine_physical_adult}}">{{new_prices.routine_physical_adult}}</div><br/>
+<div data-bind="if: {{new_bill.female_exam}}">Female Exam</div>
+<div data-bind="if: {{new_bill.female_exam}}">{{new_prices.female_exam}}</div><br/>
+<div data-bind="if: {{new_bill.child_exam}}">Child Exam</div>
+<div data-bind="if: {{new_bill.child_exam}}">{{new_prices.child_exam}}</div><br/>
+<div data-bind="if: {{new_bill.emergency_room_adult}}">Emergency Room, Adult</div>
+<div data-bind="if: {{new_bill.emergency_room_adult}}">{{new_prices.emergency_room_adult}}</div><br/>
+<div data-bind="if: {{new_bill.emergency_room_child}}">Emergency Room, Child</div>
+<div data-bind="if: {{new_bill.emergency_room_child}}">{{new_prices.emergency_room_child}}</div><br/>
+<div data-bind="if: {{new_bill.allergy_study}}">Test: Allergy Study</div>
+<div data-bind="if: {{new_bill.allergy_study}}">{{new_prices.allergy_study}}</div><br/>
+<div data-bind="if: {{new_bill.routine_electrocardiogram}}">Routine Electrocardiogram</div>
+<div data-bind="if: {{new_bill.routine_electrocardiogram}}">{{new_prices.routine_electrocardiogram}}</div><br/>
+<div data-bind="if: {{new_bill.routine_blood_test}}">Test: Blood</div>
+<div data-bind="if: {{new_bill.routine_blood_test}}">{{new_prices.blood_test}}</div><br/>
+<div data-bind="if: {{new_bill.routine_urinalysis_test}}">Test: Urinalysis</div>
+<div data-bind="if: {{new_bill.routine_urinalysis_test}}">{{new_prices.urinalysis_test}}</div><br/>
+<div data-bind="if: {{new_bill.mri}}">MRI</div>
+<div data-bind="if: {{new_bill.mri}}">{{new_prices.mri}}</div><br/>
+<div data-bind="if: {{new_bill.cat}}">CAT</div>
+<div data-bind="if: {{new_bill.cat}}">{{new_prices.cat}}</div><br/>
+<p>Total:{{new_bill.sum}}</p>
+<div class="container" align="center">
+    <label>{{error_message}}</label>
+</div>
+{% endblock %}

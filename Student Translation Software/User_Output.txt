@@ -1,0 +1,14 @@
+User Grade: 72.72727
+The Master String: This Nation was founded by men of many nations and backgrounds
+true true true true true true false true false false true 
+6.0 
+3.0 
+2.0 
+2.0 
+1.0 
+3.0 
+1.0 
+2.0 
+2.0 
+6.0 
+4.0 

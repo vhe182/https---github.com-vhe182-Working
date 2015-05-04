@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center" style="width: 80%">
+    <h2>Patient Email Lookup</h2>
+    <div class="container" align="center" style="width: 50%">
+        <form method="post" class="form-signin" role="form">
+            <input type="text" name="last_name" class="form-control" placeholder="Patient Last Name" required autofocus>
+            <button class="btn btn-log btn-primary btn-block" type="submit">Find</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <table style="width: 80%">
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>ID</th>
+        </tr>
+    {% for patient in patients %}
+        <tr>
+            <td>{{patient.last_name}}</td>
+            <td>{{patient.first_name}}</td>
+            <td>{{patient.email}}</td>
+            <td>{{patient.key()}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+<div class="container" align="center">
+    <label>{{error_message}}</label>
+</div>
+{% endblock %}

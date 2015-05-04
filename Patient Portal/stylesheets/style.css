@@ -1,0 +1,44 @@
+
+.stroke
+{
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.hometitle {
+    font-family: fantasy;
+    text-align: center;
+    color: #d9edf7;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    font-size: 900%;
+}
+
+#center {
+    width: 620px;
+    background-color: #ffcc33;
+    margin: auto;
+}
+#first {
+    position: relative;
+    right: 100px;
+    width: 310px;
+    float: left;
+    height: 150px;
+    background-color: rgba(0,0,255,0.4);
+    text-transform: uppercase;
+}
+#second {
+    position: relative;
+    left: 100px;
+    width: 310px;
+    float: right;
+    height: 150px;
+    background-color: rgba(0,255,0,0.3);
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Receipt Generator</h2>
+<div class="container">
+    <form method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading">Please Enter Information</h2>
+        <input type="text" name="patient_email" class="form-control" placeholder="Patient's E-mail" required><br/>
+        <p>Receipt Prepared by:
+        <td>{{current_user.first_name}}</td>
+        <td>{{current_user.last_name}}</td>
+        </p>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="routine_physical_adult" value="TRUE">Routine Physical, Adult? <br />
+                <input type="checkbox" name="female_exam" value="TRUE">Female exam? <br />
+                <input type="checkbox" name="child_exam" value="TRUE">Child exam?<br />
+                <input type="checkbox" name="emergency_room_adult" value="TRUE">Emergency room, Adult?<br />
+                <input type="checkbox" name="emergency_room_child" value="TRUE">Emergency room, Child?<br />
+                <p>Diagnostic Tests and Lab Services</p>
+                <input type="checkbox" name="allergy_study" value="TRUE"> Allergy Study?<br/>
+                <input type="checkbox" name="routine_electrocardiogram" value="TRUE">Routine Electrocardiogram?<br/>
+                <input type="checkbox" name="blood_test" value="TRUE">Blood Test?<br/>
+                <input type="checkbox" name="urinalysis_test" value="TRUE">Urinalysis Test?<br/>
+                <input type="checkbox" name="mri" value="TRUE">MRI?<br/>
+                <input type="checkbox" name="cat" value="TRUE">CAT scan?<br/>
+            </label>
+        </div>
+        <button class="btn btn-log btn-primary btn-block" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

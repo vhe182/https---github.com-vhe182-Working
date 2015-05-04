@@ -1,0 +1,14 @@
+#!/usr/bin/perl -w
+$regex = shift;
+foreach $arg ( @ARGV )
+{
+	open( FILE, $arg ) or die;
+	@lines = <FILE>;
+	if ( @matches = grep(/$regex/, @lines) )
+	{
+		foreach $match( @matches)
+		{
+			print "$arg:$match";
+		}
+	}
+}

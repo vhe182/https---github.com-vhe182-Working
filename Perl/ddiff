@@ -1,0 +1,117 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+
+
+#PROGRAM: ddiff
+#AUTHOR : Victor Hugo Estrada
+#CLASS  : Systems Programming
+#Professor : Dr. Maynard
+
+#DESCRIPTION: This program will determine whether the files within 
+#the two given directories exist in the other's directory and 
+#whether they are the same or different according to UNIX diff 
+#function.  The user can determine various output options depending
+#on the flags they enter.  The flags are described below:
+#
+#	d	->	the files are different 
+#	s	->	the files are the same
+#	1	->	the files that only exists in directory1
+#	2	->	the files that only exists in directory2
+
+
+die "Usage: ddiff [-ds12] <directory1> <directory2>\n" if @ARGV < 2;
+
+my %flags = (); #STORES FLAGS AS INDICES
+my @dir1 = (); #STORES THE FILES FOR DIRECTORY1
+my @dir2 = (); #STORES THE FILES FOR DIRECTORY2
+my %dir1 = (); #STORES THE FILES FOR DIRECTORY1
+my %dir2 = (); #STORES THE FILES FOR DIRECTORY2
+my %printd = (); #STORES THE PRINT STATEMENTS FOR d FLAG
+my %prints = (); #STORES THE PRINT STATEMENTS FOR s FLAG 
+my %print1 = (); #STORES THE PRINT STATEMENTS FOR 1 FLAG
+my %print2 = (); #STORES THE PRINT STATEMENTS FOR 2 FLAG
+
+
+#CHECK FOR FLAGS AND PLACE THEM IN A HASH IF THEY EXIST.  IF NOT,
+#NOFLAGS FLAG IS GIVEN VALUE OF 1;
+my @checkflags = split("",$ARGV[0]);
+if ( $checkflags[0] eq "-" )
+{
+	shift @checkflags;
+	foreach my $index ( @checkflags )
+	{
+		$flags{"noflags"} = 0;
+		$flags{$index} = 1;
+	}
+	shift @ARGV;
+}else{
+	$flags{"noflags"} = 1;
+}
+
+#CALL FIND ON DIRECTORY1, CHOP THE LINES, FILTER FOR REGULAR FILES
+#AND PLACE THE FILENAME INTO THE INDEX PORTION OF THE %dir1 HASH.
+@dir1 = `find $ARGV[0]`;
+chop @dir1;
+@dir1 = grep( -f ,@dir1 );
+foreach my $line ( @dir1 )
+{
+	my @pieces = split(/\//,$line);
+	$dir1{ $pieces[$#pieces] } = 1;
+}
+
+#CALL FIND ON DIRECTORY2, CHOP THE LINES, FILTER FOR REGULAR FILES
+#AND PLACE THE FILENAME INTO THE INDEX PORTION OF THE %dir2 HASH.
+@dir2 = `find $ARGV[1]`;
+chop @dir2;
+@dir2 = grep( -f ,@dir2 );
+foreach my $line ( @dir2 )
+{
+	my @pieces = split(/\//,$line);
+	$dir2{ $pieces[$#pieces] } = 1;
+}
+
+#LOOP THROUGH EACH INDEX OF %dir1 HASH AND TEST FOR EXISTENCE IN
+#%dir2 HASH.  IF SO, PERFORM THE APPROPRIATE TEST AND STORE THE 
+#PRINT STATEMENT AS A HASH INDEX IN THE APPROPRIATE PRINT HASH.
+foreach my $index ( sort keys %dir1 )
+{
+	if ( exists ( $dir2{ $index } ) )
+	{
+		if ( `/usr/bin/diff -q "$ARGV[0]/$index" "$ARGV[1]/$index"` )
+		{
+			$printd{ "< $index >" } = 1;
+		}else{
+			$prints{ "> $index <" } = 1;
+		}
+	}else{
+		$print1{ "<<< $index" } = 1;
+	}
+}
+
+#LOOP THROUGH ALL INDICES OF %dir2 HASH CHECKING FOR EXISTENCE OF
+#INDEX IN %dir1 HASH.  IF NOT, STORE APPROPRIATE PRINT STATEMENT
+#THE PRINT HASH.
+foreach my $index ( sort keys %dir2 )
+{
+	if ( !exists ( $dir1{ $index } ) )
+	{
+		$print2{ ">>> $index" } = 1;
+	}
+}
+
+#CHECK FOR noflags INDEX EXISTENCE IN %flags HASH, IF EXISTS.
+#TREAT AS ALL FLAGS ACTIVE AND PRINT ALL PRINT HASHES.  ELSE,
+#CHECK FOR EXISTENCE OF ALL OF FLAGS AND PRINT APPROPRIATE ONES.
+if ( $flags{"noflags"} )
+{
+	print "$_\n" foreach sort keys %printd;
+	print "$_\n" foreach sort keys %prints;
+	print "$_\n" foreach sort keys %print1;
+	print "$_\n" foreach sort keys %print2;
+}else{
+	if ( $flags{"d"}  ) { print "$_\n" foreach sort keys %printd; }
+	if ( $flags{"s"} ) { print "$_\n" foreach sort keys %prints; }
+	if ( $flags{"1"} ) { print "$_\n" foreach sort keys %print1; }
+	if ( $flags{"2"} ) { print "$_\n" foreach sort keys %print2; }
+}

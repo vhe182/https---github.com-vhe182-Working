@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class ="container" align="center" style="width: 80%">
+    <h2> Patient Chart Entries</h2>
+    <div class="container" align="center" style="width: 50%">
+        <form method="post" class="form-signin" role="form">
+            <input type="text" name="patient_email" class="form-control" placeholder="Patient Email" required autofocus>
+            <button class="btn btn-log btn-primary btn-block" type="submit">Find</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <table style="width: 80%">
+        <tr>
+            <th>Patient Email</th>
+            <th>Height (inches)</th>
+            <th>Weight (lbs)</th>
+            <th>Blood Pressure</th>
+            <th>Diagnosis</th>
+            <th>Comments</th>
+            <th>Time Logged</th>
+        </tr>
+    {% for chart in charts %}
+        <tr>
+            <td>{{chart.email}}</td>
+            <td>{{chart.height}}</td>
+            <td>{{chart.weight}}</td>
+            <td>{{chart.blood_pressure}}</td>
+            <td>{{chart.diagnosis}}</td>
+            <td>{{chart.comments}}</td>
+            <td>{{chart.created}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+<div class="container" align="center">
+    <label>{{error_message}}</label>
+</div>
+{% endblock %}

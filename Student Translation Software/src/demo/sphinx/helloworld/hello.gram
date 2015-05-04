@@ -1,0 +1,17 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Hello World example
+ */
+
+grammar hello;
+
+public <greet> = (Good morning | Hello | Fish | Dog | Computer | Good Bye | Stop | Team | Thank you);
+
+public <speech> = (This | Nation | Was | Founded | By | Men | Of | Many | Nations | And | Backgrounds);
+
+public <one> = (We | Hold | These | Truths | To | Be | Self | Evident | That | All | Men | Are | Created | Equal);  
+
+public <two> = (At | This | Very | Moment | As | We | Sit | Here | Women | Around | The | World | Are | Giving | Birth);
+
+
